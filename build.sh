@@ -32,13 +32,13 @@ buildROM()
 {
 	echo "Building..."
 	. build/envsetup.sh
-	time schedtool -B -n 1 -e ionice -n 1 brunch cheeseburger -j"$CPU_NUM" "$@"
+	brunch cheeseburger
 	if [ "$?" == 0 ]; then
 		echo "Build done"
 	else
 		echo "Build failed"
 	fi
-	croot
+	
 }
 
 
@@ -65,7 +65,7 @@ deepClean() {
 }
 
 getBuild() {
-	croot
+	
 	rm -rf build
 	repo sync build
 	repo sync build/kati
@@ -83,13 +83,13 @@ getBuild() {
 
 upstreamMerge() {
 
-	croot
+	
 	echo "Refreshing manifest"
 	repo init -u git://github.com/OptimizedLineageOS/manifests.git -b opt-cm-14.1
 	echo "Syncing projects"
 	repo sync --force-sync
 	
-	croot
+	
         #echo "Upstream merging"
         ## Our snippet/manifest
         #ROOMSER=.repo/manifests/snippets/opt-cm-14.1.xml
