@@ -111,6 +111,17 @@ upstreamMerge() {
             git push origin opt-cm-14.1
             croot
         done <<< "$CHECK"
+	
+	# Upstream merge audio
+	echo "Upstreaming audio"
+	cd hardware/qcom/audio-caf/msm8998
+	ROOMSER=.repo/manifests/snippets/optlos.xml
+	git branch -D cm-14.1-caf-8998
+	git checkout -b cm-14.1-caf-8998
+	git pull https://www.github.com/lineageos/android_hardware_qcom_audio cm-14.1-caf-8998
+	git push origin cm-14.1-caf-8998
+	croot
+      
 
 }
 
