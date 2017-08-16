@@ -5,7 +5,7 @@
 # / // / // / /__  / // -_) _ `/  ' \ 
 # \___/____/\___/ /_/ \__/\_,_/_/_/_/ 
 #
-# Copyright 2016 JDCTeam
+# Copyright 2017 JDCTeam
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -90,27 +90,27 @@ upstreamMerge() {
 	repo sync --force-sync
 	
 	
-        #echo "Upstream merging"
-        ## Our snippet/manifest
-        #ROOMSER=.repo/manifests/snippets/opt-cm-14.1.xml
+        echo "Upstream merging"
+        # Our snippet/manifest
+        ROOMSER=.repo/manifests/snippets/optlos.xml
         # Lines to loop over
-        #CHECK=$(cat ${ROOMSER} | grep -e "<remove-project" | cut -d= -f3 | sed 's/revision//1' | sed 's/\"//g' | sed 's|/>||g')
+        CHECK=$(cat ${ROOMSER} | grep -e "<remove-project" | cut -d= -f3 | sed 's/revision//1' | sed 's/\"//g' | sed 's|/>||g')
 
-        ## Upstream merging for forked repos
-       # while read -r line; do
-       #     echo "Upstream merging for $line"
-       #    rm -rf $line
-	#    repo sync $line
-	  #  cd "$line"
-	   # git branch -D opt-cm-14.1
-	   # git checkout -b opt-cm-14.1
-           # UPSTREAM=$(sed -n '1p' UPSTREAM)
-           # BRANCH=$(sed -n '2p' UPSTREAM)
+        # Upstream merging for forked repos
+        while read -r line; do
+           echo "Upstream merging for $line"
+           rm -rf $line
+	   repo sync $line
+	   cd "$line"
+	   git branch -D opt-cm-14.1
+	   git checkout -b opt-cm-14.1
+           UPSTREAM=$(sed -n '1p' UPSTREAM)
+           BRANCH=$(sed -n '2p' UPSTREAM)
 
-           # git pull https://www.github.com/"$UPSTREAM" "$BRANCH"
-           # git push origin opt-cm-14.1
-           # croot
-        #done <<< "$CHECK"
+            git pull https://www.github.com/"$UPSTREAM" "$BRANCH"
+            git push origin opt-cm-14.1
+            croot
+        done <<< "$CHECK"
 
 }
 
