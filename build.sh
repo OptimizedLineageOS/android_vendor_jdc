@@ -31,7 +31,6 @@ AROMA_DIR=aroma
 buildROM()
 {
 	echo "Building..."
-	. build/envsetup.sh
 	brunch cheeseburger
 	if [ "$?" == 0 ]; then
 		echo "Build done"
@@ -115,7 +114,6 @@ upstreamMerge() {
 	# Upstream merge audio
 	echo "Upstreaming audio"
 	cd hardware/qcom/audio-caf/msm8998
-	ROOMSER=.repo/manifests/snippets/optlos.xml
 	git branch -D cm-14.1-caf-8998
 	git checkout -b cm-14.1-caf-8998
 	git pull https://www.github.com/lineageos/android_hardware_qcom_audio cm-14.1-caf-8998
@@ -172,6 +170,7 @@ echo " "
 echo -e "\e[1;91mPlease make your selections carefully"
 echo -e "\e[0m "
 echo " "
+. build/envsetup.sh
 select build in "Refresh manifest,repo sync and upstream merge" "Build ROM"  "Add Aroma Installer to ROM"  "Refresh build directory" "Deep clean(inc. ccache)" "Exit"; do
 	case $build in
 		"Refresh manifest,repo sync and upstream merge" ) upstreamMerge; getBuild;anythingElse; break;;
