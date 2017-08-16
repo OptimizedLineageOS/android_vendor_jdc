@@ -20,7 +20,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/jdc/prebuilt/common/bin/format.sh:install/bin/format.sh
 
-
 # eMMC trim
 PRODUCT_COPY_FILES += \
     vendor/jdc/prebuilt/common/bin/emmc_trim:system/bin/emmc_trim
@@ -31,10 +30,6 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/jdc/overlay/common
 # SuperSU
 PRODUCT_COPY_FILES += \
     vendor/jdc/prebuilt/common/supersu/supersu.zip:system/supersu/supersu.zip
-
-# Take a logcat
-#PRODUCT_COPY_FILES += \
-    vendor/jdc/prebuilt/common/bin/take_log:system/bin/take_log
     
 #Substratum Verified
 PRODUCT_PROPERTY_OVERRIDES := \
@@ -43,10 +38,6 @@ PRODUCT_PROPERTY_OVERRIDES := \
 # Enable Storage Manager
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.storage_manager.enabled=1
-    
-# Google Assistant
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opa.eligible_device=true
 
 # Set cache location
 ifeq ($(BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE),)
