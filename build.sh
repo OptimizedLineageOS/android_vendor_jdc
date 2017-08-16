@@ -170,7 +170,7 @@ echo " "
 echo -e "\e[1;91mPlease make your selections carefully"
 echo -e "\e[0m "
 echo " "
-. build/envsetup.sh
+. build/envsetup.sh > /dev/null
 select build in "Refresh manifest,repo sync and upstream merge" "Build ROM"  "Add Aroma Installer to ROM"  "Refresh build directory" "Deep clean(inc. ccache)" "Exit"; do
 	case $build in
 		"Refresh manifest,repo sync and upstream merge" ) upstreamMerge; getBuild;anythingElse; break;;
