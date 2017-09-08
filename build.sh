@@ -84,14 +84,14 @@ upstreamMerge() {
 
 	
 	echo "Refreshing manifest"
-	repo init -u git://github.com/OptimizedLineageOS/manifests.git -b opt-cm-14.1
+	repo init -u git://github.com/palmrom/manifests.git -b opt-cm-14.1
 	echo "Syncing projects"
 	repo sync --force-sync
 	
 	
         echo "Upstream merging"
         # Our snippet/manifest
-        ROOMSER=.repo/manifests/snippets/optlos.xml
+        ROOMSER=.repo/manifests/snippets/palm.xml
         # Lines to loop over
         CHECK=$(cat ${ROOMSER} | grep -e "<remove-project" | cut -d= -f3 | sed 's/revision//1' | sed 's/\"//g' | sed 's|/>||g')
 
