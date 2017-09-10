@@ -20,7 +20,7 @@
 # limitations under the License.
 
 
-TEAM_NAME="JDCTeam"
+ROM_NAME="Palm Project"
 TARGET=Cheeseburger
 VARIANT=userdebug
 CM_VER=14.1
@@ -42,6 +42,12 @@ buildROM()
 
 
 anythingElse() {
+    echo -e "\e[1;91m==============================================================="
+    echo -e "\e[0m "
+    echo -e "\e[1;91mPlease update your device tree,EXTERNAL WEBVIEW,aroma,Substratum"
+    echo ""
+    echo "==============================================================="
+    echo -e "\e[0m "
     echo " "
     echo " "
     echo "Anything else?"
@@ -61,23 +67,6 @@ deepClean() {
 	echo "Making clobber"
 	make clobber
 	
-}
-
-getBuild() {
-	
-	rm -rf build
-	repo sync build
-	repo sync build/kati
-	repo sync build/soong
-	repo sync build/blueprint
-	
-	
-	echo -e "\e[1;91m==============================================================="
-	echo -e "\e[0m "
-	echo -e "\e[1;91mPlease update your device tree,EXTERNAL WEBVIEW,aroma,Substratum"
-	echo ""
-	echo "==============================================================="
-	echo -e "\e[0m "
 }
 
 upstreamMerge() {
@@ -155,7 +144,7 @@ useAroma()
 
 
 echo " "
-echo -e "\e[1;91mWelcome to the $TEAM_NAME build script"
+echo -e "\e[1;91mWelcome to the $ROM_NAME build script"
 echo -e "\e[0m "
 echo "Setting up build environment..."
 echo "Setting build target $TARGET""..."
@@ -164,13 +153,14 @@ echo -e "\e[1;91mPlease make your selections carefully"
 echo -e "\e[0m "
 echo " "
 . build/envsetup.sh > /dev/null
-select build in "Refresh manifest,repo sync and upstream merge" "Build ROM"  "Add Aroma Installer to ROM"  "Refresh build directory" "Deep clean(inc. ccache)" "Exit"; do
+select build in "Deep clean (inc. ccache)" "Build ROM" "Add Aroma Installer to ROM" "Refresh manifest,repo sync and upstream merge" "Deep Clean,Refresh Repo,Build,No Aroma" "Deep Clean,Refresh Repo,Build,Add Aroma"    "Exit"; do
 	case $build in
-		"Refresh manifest,repo sync and upstream merge" ) upstreamMerge; getBuild;anythingElse; break;;
+		"Deep clean (inc. ccache)" ) deepClean; anythingElse; break;;
 		"Build ROM" ) buildROM; anythingElse; break;;
 		"Add Aroma Installer to ROM" ) useAroma; anythingElse; break;;
-		"Refresh build directory" ) getBuild; anythingElse; break;;
-		"Deep clean(inc. ccache)" ) deepClean; anythingElse; break;;
+		"Refresh manifest,repo sync and upstream merge" ) upstreamMerge; anythingElse; break;;
+		"Deep Clean,Refresh Repo,Build,No Aroma"  ) deepClean; buildROM; anythingElse; break;;
+		"Deep Clean,Refresh Repo,Build,Add Aroma"  ) deepClean; buildROM; useAroma; anythingElse; break;;
 		"Exit" ) exit 0; break;;
 	esac
 done
