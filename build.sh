@@ -25,7 +25,7 @@ TARGET=Cheeseburger
 VARIANT=userdebug
 CM_VER=14.1
 OUT="out/target/product/cheeseburger"
-FILENAME=Optimized-LineageOS-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"
+FILENAME=PalmProject-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"
 AROMA_DIR=aroma
 
 buildROM()
@@ -123,7 +123,7 @@ useAroma()
 	echo "No AROMA directory found.Please check your sources"
 	break;
     fi
-    FILENAME=Optimized-LineageOS-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"-AROMA
+    FILENAME=PalmProject-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"-AROMA
     echo " "
     LATEST=$(ls -t | grep -v .zip.md5 | grep .zip | head -n 1)
     TEMP2=tmpAroma
