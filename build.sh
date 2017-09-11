@@ -30,6 +30,12 @@ AROMA_DIR=aroma
 
 buildROM()
 {
+	echo "Refreshing build directories..."
+	rm -rf build
+	repo sync build
+	repo sync build/kati
+	repo sync build/soong
+	repo sync build/blueprint
 	echo "Building..."
 	brunch cheeseburger
 	if [ "$?" == 0 ]; then
