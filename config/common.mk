@@ -1,7 +1,3 @@
-#Arise
-PRODUCT_COPY_FILES += \
-	vendor/jdc/prebuilt/common/arise/arise.zip:system/arise/arise.zip
-
 # Backup Tool
 PRODUCT_COPY_FILES += \
     vendor/jdc/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
@@ -26,10 +22,6 @@ PRODUCT_COPY_FILES += \
 
 # Overlays
 PRODUCT_PACKAGE_OVERLAYS += vendor/jdc/overlay/common
-    
-# SuperSU
-PRODUCT_COPY_FILES += \
-    vendor/jdc/prebuilt/common/supersu/supersu.zip:system/supersu/supersu.zip
     
 #Substratum Verified
 PRODUCT_PROPERTY_OVERRIDES := \
