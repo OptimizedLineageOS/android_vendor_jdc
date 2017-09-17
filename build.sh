@@ -19,25 +19,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 #export USE_CCACHE=1
 #export CCACHE_COMPRESS=1
 
 ROM_NAME="Palm Project"
-TARGET=Cheeseburger
+TARGET=cheeseburger
 VARIANT=userdebug
 CM_VER=14.1
 OUT="out/target/product/cheeseburger"
 FILENAME=PalmProject-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"
 AROMA_DIR=aroma
 
-buildROM()
-{
-	echo "Refreshing build directories..."
-	rm -rf build
-	repo sync build
-	repo sync build/kati
-	repo sync build/soong
-	repo sync build/blueprint
+	
+buildROM() {	
 	echo "Building..."
 	brunch cheeseburger
 	if [ "$?" == 0 ]; then
@@ -45,6 +40,17 @@ buildROM()
 	else
 		echo "Build failed"
 	fi
+	
+}
+
+
+doRefresh() {	
+	echo "Refreshing build directories..."
+	rm -rf build
+	repo sync build
+	repo sync build/kati
+	repo sync build/soong
+	repo sync build/blueprint
 	
 }
 
@@ -78,8 +84,6 @@ deepClean() {
 }
 
 upstreamMerge() {
-
-	
 	echo "Refreshing manifest"
 	repo init -u git://github.com/palmrom/manifests.git -b opt-cm-14.1
 	echo "Syncing projects"
@@ -113,8 +117,7 @@ upstreamMerge() {
 
 }
 
-useAroma()
-{
+useAroma() {
     LOG="Unzipping files to repack with AROMA..."/$(date +"%T")
     if [ ! -d "$AROMA_DIR" ]; then
 	echo "No AROMA directory found.Please check your sources"
@@ -122,18 +125,18 @@ useAroma()
     fi
     FILENAME=PalmProject-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"-AROMA
     echo " "
-    LATEST=$(ls -t | grep -v .zip.md5 | grep .zip | head -n 1)
+    LATEST=$(ls -t $OUT | grep -v .zip.md5 | grep .zip | head -n 1)
     TEMP2=tmpAroma
     if [ -d "$TEMP2" ]; then 
     rm -rf "$TEMP2"
     fi
     mkdir "$TEMP2"
     echo "Unpacking ROM to temp folder"
-    unzip -q "$LATEST" -d"$TEMP2"
+    unzip -q "$OUT"/"$LATEST" -d "$TEMP2"
     echo "Removing META-INF folder"
     rm -rf "$TEMP2"/META-INF
     echo "Copying Aroma Installer"
-    cp -r "$AROMA_DIR"/jdc "$TEMP2"/jdc
+    cp -r "$AROMA_DIR"/palm "$TEMP2"/palm
     cp -r "$AROMA_DIR"/xbin "$TEMP2"/xbin
     cp -r "$AROMA_DIR"/META-INF "$TEMP2"/META-INF
 
@@ -145,8 +148,9 @@ useAroma()
     md5sum "$FILENAME".zip > "$FILENAME".zip.md5
     echo "Cleaning up"
     rm -rf "$TEMP2"
-    echo "Done"
-    LOG="Added AROMA.Build finished successfully"/$(date +"%T")
+	echo " "
+    echo "-- Done.. Added AROMA.. Build finished successfully!"
+    LOG="Added AROMA. Build finished successfully!"/$(date +"%T")
 
 }
 
@@ -161,14 +165,14 @@ echo -e "\e[1;91mPlease make your selections carefully"
 echo -e "\e[0m "
 echo " "
 . build/envsetup.sh > /dev/null
-select build in "Deep clean (inc. ccache)" "Build ROM" "Add Aroma Installer to ROM" "Refresh manifest,repo sync and upstream merge" "Deep Clean,Refresh Repo,Build,No Aroma" "Deep Clean,Refresh Repo,Build,Add Aroma"    "Exit"; do
+select build in "Deep clean (inc. ccache)" "Build ROM" "Add Aroma Installer to ROM" "Refresh manifest,repo sync and upstream merge" "Deep Clean,Refresh Build,Build,No Aroma" "Deep Clean,Refresh Build,Build,Add Aroma"    "Exit"; do
 	case $build in
 		"Deep clean (inc. ccache)" ) deepClean; anythingElse; break;;
 		"Build ROM" ) buildROM; anythingElse; break;;
 		"Add Aroma Installer to ROM" ) useAroma; anythingElse; break;;
 		"Refresh manifest,repo sync and upstream merge" ) upstreamMerge; anythingElse; break;;
-		"Deep Clean,Refresh Repo,Build,No Aroma"  ) deepClean; buildROM; anythingElse; break;;
-		"Deep Clean,Refresh Repo,Build,Add Aroma"  ) deepClean; buildROM; useAroma; anythingElse; break;;
+		"Deep Clean,Refresh Build,Build,No Aroma"  ) deepClean; doRefresh; buildROM; anythingElse; break;;
+		"Deep Clean,Refresh Build,Build,Add Aroma"  ) deepClean; doRefresh; buildROM; useAroma; anythingElse; break;;
 		"Exit" ) exit 0; break;;
 	esac
 done
