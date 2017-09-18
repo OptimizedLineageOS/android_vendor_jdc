@@ -20,8 +20,8 @@
 # limitations under the License.
 
 
-#export USE_CCACHE=1
-#export CCACHE_COMPRESS=1
+export USE_CCACHE=1
+export CCACHE_COMPRESS=1
 
 ROM_NAME="Palm Project"
 TARGET=cheeseburger
@@ -74,8 +74,11 @@ anythingElse() {
 }
 
 deepClean() {
-	ccache -C
-	ccache -c
+        read -t 3 -p "Clean ccache? 3 sec timeout? (y/n)";
+	if [ "$REPLY" == "y" ]; then
+		ccache -C
+		ccache -c
+	fi;
 	echo "Making clean"
 	make clean
 	echo "Making clobber"
