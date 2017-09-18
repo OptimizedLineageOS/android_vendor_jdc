@@ -6,10 +6,13 @@
 #
 # File system trim at each boot
 #
+LED=/sys/class/leds/blue/trigger
+echo heartbeat > $LED
 LOG=/cache/trim.log
 echo "*** $(date -u +%Y-%m-%d) ***" >> $LOG
 fstrim -v /cache >> $LOG
 fstrim -v /data >> $LOG
 fstrim -v /system >> $LOG
+echo none > $LED
 sync
 exit 0

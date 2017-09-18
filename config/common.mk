@@ -18,7 +18,7 @@ PRODUCT_COPY_FILES += \
 
 # eMMC trim
 PRODUCT_COPY_FILES += \
-    vendor/jdc/prebuilt/common/bin/emmc_trim:system/bin/emmc_trim
+    vendor/jdc/prebuilt/common/bin/emmc_trim:system/bin/emmc_trim.sh
 
 # Overlays
 PRODUCT_PACKAGE_OVERLAYS += vendor/jdc/overlay/common
