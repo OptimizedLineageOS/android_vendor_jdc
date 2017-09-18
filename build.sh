@@ -156,12 +156,14 @@ useAroma() {
 
 
 echo " "
-echo -e "\e[1;91mWelcome to the $ROM_NAME build script"
-echo -e "\e[0m "
-echo "Setting up build environment..."
-echo "Setting build target $TARGET""..."
 echo " "
-echo -e "\e[1;91mPlease make your selections carefully"
+echo " "
+echo " "
+echo " "
+echo -e "\e[1;92m--= \e[1;95mWelcome to the $ROM_NAME build script\e[1;92m =--"
+echo -e "\e[0m "
+echo " "
+echo -e "\e[1;96mPlease make your selections carefully"
 echo -e "\e[0m "
 echo " "
 . build/envsetup.sh > /dev/null
