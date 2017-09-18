@@ -23,6 +23,10 @@ PRODUCT_COPY_FILES += \
 # Overlays
 PRODUCT_PACKAGE_OVERLAYS += vendor/jdc/overlay/common
     
+# Packages
+PRODUCT_PACKAGES += \
+    ThemeInterfacer
+
 #Substratum Verified
 PRODUCT_PROPERTY_OVERRIDES := \
     ro.substratum.verified=true
