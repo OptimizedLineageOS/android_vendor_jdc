@@ -133,6 +133,9 @@ useAroma() {
     if [ -d "$TEMP2" ]; then 
     rm -rf "$TEMP2"
     fi
+    echo "Removing previous Aroma Builds"
+    rm -rf Palm*.zip
+    rm -rf Palm*.md5
     mkdir "$TEMP2"
     echo "Unpacking ROM to temp folder"
     unzip -q "$OUT"/"$LATEST" -d "$TEMP2"
