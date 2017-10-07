@@ -33,6 +33,13 @@ AROMA_DIR=aroma
 
 	
 buildROM() {	
+	echo "Cleaning OnePlus5 sources"
+	rm -rf kernel/oneplus
+	rm -rf vendor/oneplus
+	rm -rf device/oneplus
+	rm -rf device/oppo
+	rm -rf prebuilts/snapdragon-llvm
+	
 	echo "Building..."
 	lunch lineage_s5neoltexx-userdebug 
 	make -j9 otapackage
