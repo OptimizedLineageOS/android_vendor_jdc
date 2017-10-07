@@ -68,7 +68,7 @@ repackLibs() {
 	cd ..
 	md5sum "$FILENAME".zip > "$FILENAME".zip.md5
 	echo "Cleaning..."
-	#rm -rf "$TEMP2"
+	rm -rf "$TEMP2"
 	echo "Done"
 
 
