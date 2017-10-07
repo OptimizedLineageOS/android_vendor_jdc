@@ -58,12 +58,14 @@ repackLibs() {
 	echo "Unpacking ROM to temp folder"
 	unzip -q "$OUT"/"$LATEST" -d"$TEMP2"
 	
-	cd "$TEMP2"/system
-	rm -rf lib
-	cd ../..
-	cp -R ../androidtools/lib "$TEMP2"/system/lib
+	cp -R device/samsung/exynos7580-common/lib.zip "$TEMP2"
 	cd "$TEMP2"
+	mkdir tmpExtract
+	unzip -q lib.zip -d tmpExtract
+        yes | cp -rf tmpExtract/lib/* system/lib
 	echo "Repacking ROM"
+	rm -rf tmpExtract
+	rm -rf lib.zip
 	zip -rq9 ../"$FILENAME".zip *
 	cd ..
 	md5sum "$FILENAME".zip > "$FILENAME".zip.md5
@@ -135,7 +137,7 @@ echo " "
 select build in "Deep clean (inc. ccache)" "Build ROM and repack" "Exit"; do
 	case $build in
 		"Deep clean (inc. ccache)" ) deepClean; anythingElse; break;;
-		"Build ROM and repack" ) buildROM; repackLibs; anythingElse; break;;
+		"Build ROM and repack" )  repackLibs; anythingElse; break;;
 		"Exit" ) exit 0; break;;
 	esac
 done
