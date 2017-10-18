@@ -22,6 +22,5 @@
 	Add SamsungOne Font
 	Add HEVC/H.265 Video Recording
 	Add Ad-Free YouTube 4K
-	Add Pixel Launcher: Live Wallpapers
 	
 ---------------------------------------------------------
