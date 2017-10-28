@@ -28,10 +28,6 @@ PRODUCT_PACKAGES += \
     ThemeInterfacer \
     ButtonRemapper
 
-# button remapper
-PRODUCT_COPY_FILES += \
-    vendor/jdc/prebuilt/common/btnremapper:
-
 #Substratum Verified
 PRODUCT_PROPERTY_OVERRIDES := \
     ro.substratum.verified=true
