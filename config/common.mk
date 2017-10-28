@@ -25,7 +25,12 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/jdc/overlay/common
     
 # Packages
 PRODUCT_PACKAGES += \
-    ThemeInterfacer
+    ThemeInterfacer \
+    ButtonRemapper
+
+# button remapper
+PRODUCT_COPY_FILES += \
+    vendor/jdc/prebuilt/common/btnremapper:
 
 #Substratum Verified
 PRODUCT_PROPERTY_OVERRIDES := \
