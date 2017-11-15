@@ -32,9 +32,54 @@ FILENAME=PalmProject-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"
 AROMA_DIR=aroma
 
 	
+buildCOLOR() {	
+	echo ""
+	echo ""
+	echo -e "\e[1;96mPlease enter your Color choice: "
+	echo -e "\e[0m "
+	options=("COLOR-Turquoise" "COLOR-Blue")
+	select opt in "${options[@]}" ;	do
+    case $opt in
+        "COLOR-Turquoise")
+			echo ""
+            echo "You chose Color: Turquoise"
+			echo ""
+			find /home/creeper36/android/palmrom/frameworks/base/packages/SystemUI/res/drawable -name \*.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
+			find /home/creeper36/android/palmrom/frameworks/base/core/res/res/values -name colors_device_defaults.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
+			find /home/creeper36/android/palmrom/frameworks/base/core/res/res/values -name colors_material.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
+            COLOR=Turquoise
+			break;;
+			
+        "COLOR-Blue")
+			echo ""
+            echo "You chose Color: Blue"
+			echo ""
+			find /home/creeper36/android/palmrom/frameworks/base/packages/SystemUI/res/drawable -name \*.xml -exec sed -i "s/008B8B/1d6dad/g" {} \;
+			find /home/creeper36/android/palmrom/frameworks/base/core/res/res/values -name colors_device_defaults.xml -exec sed -i "s/008B8B/1d6dad/g" {} \;
+			find /home/creeper36/android/palmrom/frameworks/base/core/res/res/values -name colors_material.xml -exec sed -i "s/008B8B/1d6dad/g" {} \;
+            COLOR=Blue
+			break;;
+
+    esac
+	done ;
+
+}
+
+
+resetCOLOR() {
+			find /home/creeper36/android/palmrom/frameworks/base/packages/SystemUI/res/drawable -name \*.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
+			find /home/creeper36/android/palmrom/frameworks/base/core/res/res/values -name colors_device_defaults.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
+			find /home/creeper36/android/palmrom/frameworks/base/core/res/res/values -name colors_material.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
+	echo ""	
+}
+
+
 buildROM() {	
 	echo "Building..."
 	brunch cheeseburger
+	echo ""
+	echo "Color of the build is: $COLOR"
+	echo ""
 	if [ "$?" == 0 ]; then
 		echo "Build done"
 	else
@@ -74,6 +119,8 @@ anythingElse() {
 }
 
 deepClean() {
+    echo " "
+    echo " "
         read -t 3 -p "Clean ccache? 3 sec timeout? (y/n)";
 	if [ "$REPLY" == "y" ]; then
 		ccache -C
@@ -176,11 +223,11 @@ echo " "
 select build in "Deep clean (inc. ccache)" "Build ROM" "Add Aroma Installer to ROM" "Refresh manifest,repo sync and upstream merge" "Deep Clean,Refresh Build,Build,No Aroma" "Deep Clean,Refresh Build,Build,Add Aroma"    "Exit"; do
 	case $build in
 		"Deep clean (inc. ccache)" ) deepClean; anythingElse; break;;
-		"Build ROM" ) buildROM; anythingElse; break;;
+		"Build ROM" ) buildCOLOR; buildROM; resetCOLOR; anythingElse; break;;
 		"Add Aroma Installer to ROM" ) useAroma; anythingElse; break;;
 		"Refresh manifest,repo sync and upstream merge" ) upstreamMerge; anythingElse; break;;
-		"Deep Clean,Refresh Build,Build,No Aroma"  ) deepClean; doRefresh; buildROM; anythingElse; break;;
-		"Deep Clean,Refresh Build,Build,Add Aroma"  ) deepClean; doRefresh; buildROM; useAroma; anythingElse; break;;
+		"Deep Clean,Refresh Build,Build,No Aroma"  ) buildCOLOR; deepClean; doRefresh; buildROM; resetCOLOR; anythingElse; break;;
+		"Deep Clean,Refresh Build,Build,Add Aroma"  ) buildCOLOR; deepClean; doRefresh; buildROM; resetCOLOR; useAroma; anythingElse; break;;
 		"Exit" ) exit 0; break;;
 	esac
 done
