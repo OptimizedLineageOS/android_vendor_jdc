@@ -18,7 +18,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+#
+#########################################################################
+#
+# Turquoise is the standard color of our QS Tiles for our releases, 
+# but we also have the option of changing the color to Blue.
+#
 
 export USE_CCACHE=1
 export CCACHE_COMPRESS=1
