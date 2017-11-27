@@ -82,13 +82,17 @@ resetCOLOR() {
 
 
 buildROM() {	
-	echo "Refreshing build dirs..."
+	
 	cd $PWD
-	rm -rf build
-	repo sync build
-	repo sync build/soong
-	repo sync build/kati
-	repo sync build/blueprint
+ 	read -t 3 -p "Refresh build dir? 3 sec timeout? (y/n)";
+	if [ "$REPLY" == "y" ]; then
+		echo "Refreshing build dirs..."
+		rm -rf build
+		repo sync build
+		repo sync build/soong
+		repo sync build/kati
+		repo sync build/blueprint
+	fi;
 	echo "Building..."
 	brunch cheeseburger
 	echo ""
