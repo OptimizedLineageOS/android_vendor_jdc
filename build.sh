@@ -82,6 +82,13 @@ resetCOLOR() {
 
 
 buildROM() {	
+	echo "Refreshing build dirs..."
+	cd $PWD
+	rm -rf build
+	repo sync build
+	repo sync build/soong
+	repo sync build/kati
+	repo sync build/blueprint
 	echo "Building..."
 	brunch cheeseburger
 	echo ""
