@@ -28,6 +28,7 @@
 export USE_CCACHE=1
 export CCACHE_COMPRESS=1
 
+THISDIR=$PWD
 ROM_NAME="Palm Project"
 TARGET=cheeseburger
 VARIANT=userdebug
@@ -49,9 +50,9 @@ buildCOLOR() {
 			echo ""
             echo "You chose Color: Turquoise"
 			echo ""
-			find /home/creeper36/android/palmrom/frameworks/base/packages/SystemUI/res/drawable -name \*.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
-			find /home/creeper36/android/palmrom/frameworks/base/core/res/res/values -name colors_device_defaults.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
-			find /home/creeper36/android/palmrom/frameworks/base/core/res/res/values -name colors_material.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
+			find $PWD/frameworks/base/packages/SystemUI/res/drawable -name \*.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
+			find $PWD/frameworks/base/core/res/res/values -name colors_device_defaults.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
+			find $PWD/frameworks/base/core/res/res/values -name colors_material.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
             COLOR=Turquoise
 			break;;
 			
@@ -59,9 +60,9 @@ buildCOLOR() {
 			echo ""
             echo "You chose Color: Blue"
 			echo ""
-			find /home/creeper36/android/palmrom/frameworks/base/packages/SystemUI/res/drawable -name \*.xml -exec sed -i "s/008B8B/1d6dad/g" {} \;
-			find /home/creeper36/android/palmrom/frameworks/base/core/res/res/values -name colors_device_defaults.xml -exec sed -i "s/008B8B/1d6dad/g" {} \;
-			find /home/creeper36/android/palmrom/frameworks/base/core/res/res/values -name colors_material.xml -exec sed -i "s/008B8B/1d6dad/g" {} \;
+			find $PWD/frameworks/base/packages/SystemUI/res/drawable -name \*.xml -exec sed -i "s/008B8B/1d6dad/g" {} \;
+			find $PWD/frameworks/base/core/res/res/values -name colors_device_defaults.xml -exec sed -i "s/008B8B/1d6dad/g" {} \;
+			find $PWD/frameworks/base/core/res/res/values -name colors_material.xml -exec sed -i "s/008B8B/1d6dad/g" {} \;
             COLOR=Blue
 			break;;
 
@@ -72,9 +73,10 @@ buildCOLOR() {
 
 
 resetCOLOR() {
-			find /home/creeper36/android/palmrom/frameworks/base/packages/SystemUI/res/drawable -name \*.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
-			find /home/creeper36/android/palmrom/frameworks/base/core/res/res/values -name colors_device_defaults.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
-			find /home/creeper36/android/palmrom/frameworks/base/core/res/res/values -name colors_material.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
+# Reset to turquoise
+	find $PWD/frameworks/base/packages/SystemUI/res/drawable -name \*.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
+	find $PWD/frameworks/base/core/res/res/values -name colors_device_defaults.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
+	find $PWD/frameworks/base/core/res/res/values -name colors_material.xml -exec sed -i "s/1d6dad/008B8B/g" {} \;
 	echo ""	
 }
 
