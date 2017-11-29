@@ -200,7 +200,7 @@ echo " "
 select build in "Deep clean (inc. ccache)" "Build ROM" "Add Aroma Installer to ROM" "Refresh manifest,repo sync and upstream merge" "Deep Clean,Refresh Build,Build,No Aroma" "Deep Clean,Refresh Build,Build,Add Aroma"    "Exit"; do
 	case $build in
 		"Deep clean (inc. ccache)" ) deepClean; anythingElse; break;;
-		"Build ROM" ) buildROM; anythingElse; break;;
+		"Build ROM" ) buildROM; useAroma; anythingElse; break;;
 		"Add Aroma Installer to ROM" ) useAroma; anythingElse; break;;
 		"Refresh manifest,repo sync and upstream merge" ) upstreamMerge; anythingElse; break;;
 		"Deep Clean,Refresh Build,Build,No Aroma"  ) deepClean; doRefresh; buildROM; anythingElse; break;;
