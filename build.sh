@@ -25,8 +25,7 @@
 # but we also have the option of changing the color to Blue.
 #
 
-export USE_CCACHE=1
-export CCACHE_COMPRESS=1
+
 
 THISDIR=$PWD
 ROM_NAME="Palm Project"
@@ -84,6 +83,11 @@ resetCOLOR() {
 buildROM() {	
 	
 	cd $PWD
+	read -t 3 -p "Going to build...Use ccache? (y/n)";
+	if [ "$REPLY" == "y" ]; then
+		export USE_CCACHE=1
+	fi;
+
  	read -t 3 -p "Refresh build dir? 3 sec timeout? (y/n)";
 	if [ "$REPLY" == "y" ]; then
 		echo "Refreshing build dirs..."
