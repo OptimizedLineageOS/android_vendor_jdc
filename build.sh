@@ -61,7 +61,7 @@ doRefresh() {
 		repo sync build/soong
 		repo sync build/kati
 		repo sync build/blueprint
-	fi;	
+	fi	
 }
 
 anythingElse() {
