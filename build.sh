@@ -35,23 +35,11 @@ FILENAME=PalmProject-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"
 AROMA_DIR=aroma
 
 
-
 buildROM() {	
-	
 	cd $PWD
-	read -p "Going to build...Use ccache? (y/n)";
+	read -p "Going to Build...Use ccache? (y/n)";
 	if [ "$REPLY" == "y" ]; then
 		export USE_CCACHE=1
-	fi;
-
- 	read -p "Refresh build dir? 3 sec timeout? (y/n)";
-	if [ "$REPLY" == "y" ]; then
-		echo "Refreshing build dirs..."
-		rm -rf build
-		repo sync build
-		repo sync build/soong
-		repo sync build/kati
-		repo sync build/blueprint
 	fi;
 	echo "Building..."
 	brunch cheeseburger
@@ -62,28 +50,21 @@ buildROM() {
 	else
 		echo "Build failed"
 	fi
-	
 }
-
 
 doRefresh() {	
-	echo "Refreshing build directories..."
-	rm -rf build
-	repo sync build
-	repo sync build/kati
-	repo sync build/soong
-	repo sync build/blueprint
-	
+ 	read -p "Refresh build dir? (y/n)";
+	if [ "$REPLY" == "y" ]; then
+		echo "Refreshing build dirs..."
+		rm -rf build
+		repo sync build
+		repo sync build/soong
+		repo sync build/kati
+		repo sync build/blueprint
+	fi;	
 }
 
-
 anythingElse() {
-    echo -e "\e[1;91m==============================================================="
-    echo -e "\e[0m "
-    echo -e "\e[1;91mPlease update your device tree,EXTERNAL WEBVIEW,aroma,Substratum"
-    echo ""
-    echo "==============================================================="
-    echo -e "\e[0m "
     echo " "
     echo " "
     echo "Anything else?"
@@ -169,7 +150,6 @@ useAroma() {
     cp -r "$AROMA_DIR"/palm "$TEMP2"/palm
     cp -r "$AROMA_DIR"/xbin "$TEMP2"/xbin
     cp -r "$AROMA_DIR"/META-INF "$TEMP2"/META-INF
-
     cd "$TEMP2"
     echo "Repacking ROM"
     zip -rq9 ../"$FILENAME".zip *
