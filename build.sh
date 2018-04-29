@@ -29,20 +29,10 @@ THISDIR=$PWD
 ROM_NAME="Palm Project"
 VARIANT=userdebug
 CM_VER=14.1
-
+OUT="out/target/product/cheeseburger"
+TARGET="cheeseburger"
+FILENAME=PalmProject-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"
 AROMA_DIR=aroma
-
-initCheeseburger() { 
-	OUT="out/target/product/cheeseburger"
-	TARGET="cheeseburger"
-	FILENAME=PalmProject-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"
-}
-
-initS5neo() {
-	OUT="out/target/product/s5neoltexx"
-	TARGET="s5neoltexx"
-	FILENAME=PalmProject-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"
-}
 
 buildROM() {	
 	cd $PWD
@@ -65,20 +55,6 @@ buildROM() {
 		fi
 	fi
 
-	#S5neo building
-	if [ "$TARGET" == "s5neoltexx" ]; then
-	
-		echo "Building..."
-		lunch lineage_$TARGET-$VARIANT
-		make -j32 otapackage
-		echo ""
-		echo ""
-		if [ "$?" == 0 ]; then
-			echo "Build done"
-		else
-			echo "Build failed"
-		fi
-	fi
 
 
 
@@ -158,12 +134,6 @@ upstreamMerge() {
 }
 
 useAroma() {
-
-    #S5neo building
-    if [ "$TARGET" == "s5neoltexxx" ]; then
-	echo "Not implemented yet...returning"
-	return;
-    fi
     LOG="Unzipping files to repack with AROMA..."/$(date +"%T")
     if [ ! -d "$AROMA_DIR" ]; then
 	echo "No AROMA directory found.Please check your sources"
@@ -215,14 +185,6 @@ echo -e "\e[1;96mPlease make your selections carefully"
 echo -e "\e[0m "
 echo " "
 . build/envsetup.sh > /dev/null
-
-select device in "Cheeseburger" "S5Neoltexx" "Exit"; do
-	case $device in
-		"Cheeseburger" ) initCheeseburger; break;;
-		"S5Neoltexx" ) initS5neo; break;;
-		"Exit" ) exit 0; break;;
-	esac
-done
 echo " " 
 echo " "
 select build in "Deep clean (inc. ccache)" "Build ROM" "Add Aroma Installer to ROM" "Refresh manifest,repo sync and upstream merge" "Deep Clean,Refresh Build,Build,No Aroma" "Deep Clean,Refresh Build,Build,Add Aroma"    "Exit"; do
