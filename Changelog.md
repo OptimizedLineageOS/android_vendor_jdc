@@ -1,9 +1,8 @@
 
--=< Changes since 4.0-Final build: >=-
+-=< Changes since 5.0-Christmas build: >=-
 
-= Creeper36 is now maintaining this project
-= Upstream merge (December Security Patch)
+= Upstream merge (April Security Patch)
 = Updated Wallpaper
-= Aroma: Updated All Apps & Kernels
+= Aroma: Updated All Apps
 
--------------------------------------------------
+--------------------------------------------------
