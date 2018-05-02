@@ -1,11 +1,7 @@
 #! /bin/bash
 
-#      _____  __________      
-#  __ / / _ \/ ___/_  _/__ ___ ___ _
-# / // / // / /__  / // -_) _ `/  ' \ 
-# \___/____/\___/ /_/ \__/\_,_/_/_/_/ 
-#
 # Copyright 2017 JDCTeam
+# Copyright 2018 Palm Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -101,7 +97,7 @@ deepClean() {
 
 upstreamMerge() {
 	echo "Refreshing manifest"
-	repo init -u git://github.com/palmrom/manifests.git -b opt-cm-14.1
+	repo init -u git://github.com/palmrom/manifests.git -b palm-7.1
 	echo "Syncing projects"
 	repo sync --force-sync
 	
@@ -118,13 +114,13 @@ upstreamMerge() {
            rm -rf $line
 	   repo sync $line
 	   cd "$line"
-	   git branch -D opt-cm-14.1
-	   git checkout -b opt-cm-14.1
+	   git branch -D palm-7.1
+	   git checkout -b palm-7.1
            UPSTREAM=$(sed -n '1p' UPSTREAM)
            BRANCH=$(sed -n '2p' UPSTREAM)
 
             git pull https://www.github.com/"$UPSTREAM" "$BRANCH"
-            git push origin opt-cm-14.1
+            git push origin palm-7.1
             croot
         done <<< "$CHECK"
 	

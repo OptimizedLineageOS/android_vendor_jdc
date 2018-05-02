@@ -2,6 +2,7 @@
 #
 # Copyright (c) 2015 - Mattia "AntaresOne" D'Alleva
 # Copyright (c) 2015 - JDCTeam
+# Copyright (c) 2018 - Palm Project
 #
 # EXT4/F2FS format script with MultiROM support
 # Check current /system FS and format accordingly to the FS found
