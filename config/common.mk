@@ -1,16 +1,10 @@
-# Backup Tool
-PRODUCT_COPY_FILES += \
-    vendor/palm/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
-    vendor/palm/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
-    vendor/palm/prebuilt/common/bin/50-base.sh:system/addon.d/50-base.sh \
-
 # Bootanimation
 PRODUCT_COPY_FILES += \
     vendor/palm/prebuilt/common/bootanimation/bootanimation.zip:system/media/bootanimation.zip
 
 # Official Changelog
 PRODUCT_COPY_FILES += \
-	vendor/palm/Changelog.md:system/etc/Changelog.md
+    vendor/palm/Changelog.md:system/etc/Changelog.md
 
 # Custom format script
 PRODUCT_COPY_FILES += \
