@@ -24,7 +24,7 @@
 THISDIR=$PWD
 ROM_NAME="Palm Project"
 VARIANT=userdebug
-CM_VER=14.1
+CM_VER=15.1
 OUT="out/target/product/cheeseburger"
 TARGET="cheeseburger"
 FILENAME=PalmProject-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"
@@ -97,7 +97,7 @@ deepClean() {
 
 upstreamMerge() {
 	echo "Refreshing manifest"
-	repo init -u git://github.com/palmrom/manifests.git -b palm-7.1
+	repo init -u git://github.com/palmrom/manifests.git -b palm-8.1
 	echo "Syncing projects"
 	repo sync --force-sync
 	
@@ -106,7 +106,7 @@ upstreamMerge() {
         # Our snippet/manifest
         ROOMSER=.repo/manifests/snippets/palm.xml
         # Lines to loop over
-        CHECK=$(cat ${ROOMSER} | grep -e "<remove-project" | cut -d= -f3 | sed 's/revision//1' | sed 's/\"//g' | sed 's|/>||g')
+        CHECK=$(cat ${ROOMSER} | grep -e "<!--<remove-project" | cut -d= -f3 | sed 's/revision//1' | sed 's/\"//g' | sed 's|/>||g')
 
         # Upstream merging for forked repos
         while read -r line; do
@@ -114,13 +114,13 @@ upstreamMerge() {
            rm -rf $line
 	   repo sync $line
 	   cd "$line"
-	   git branch -D palm-7.1
-	   git checkout -b palm-7.1
+	   git branch -D palm-8.1
+	   git checkout -b palm-8.1
            UPSTREAM=$(sed -n '1p' UPSTREAM)
            BRANCH=$(sed -n '2p' UPSTREAM)
 
             git pull https://www.github.com/"$UPSTREAM" "$BRANCH"
-            git push origin palm-7.1
+            git push origin palm-8.1
             croot
         done <<< "$CHECK"
 	
@@ -130,48 +130,10 @@ upstreamMerge() {
 }
 
 useAroma() {
-    LOG="Unzipping files to repack with AROMA..."/$(date +"%T")
-    if [ ! -d "$AROMA_DIR" ]; then
-	echo "No AROMA directory found.Please check your sources"
-	break;
-    fi
-    FILENAME=PalmProject-"$CM_VER"-"$(date +%Y%m%d)"-"$TARGET"-AROMA
-    echo " "
-    LATEST=$(ls -t $OUT | grep -v .zip.md5 | grep .zip | head -n 1)
-    TEMP2=tmpAroma
-    if [ -d "$TEMP2" ]; then 
-    rm -rf "$TEMP2"
-    fi
-    echo "Removing previous Aroma Builds"
-    rm -rf Palm*.zip
-    rm -rf Palm*.md5
-    mkdir "$TEMP2"
-    echo "Unpacking ROM to temp folder"
-    unzip -q "$OUT"/"$LATEST" -d "$TEMP2"
-    echo "Removing META-INF folder"
-    rm -rf "$TEMP2"/META-INF
-    echo "Copying Aroma Installer"
-    cp -r "$AROMA_DIR"/palm "$TEMP2"/palm
-    cp -r "$AROMA_DIR"/xbin "$TEMP2"/xbin
-    cp -r "$AROMA_DIR"/META-INF "$TEMP2"/META-INF
-    cd "$TEMP2"
-    echo "Repacking ROM"
-    zip -rq9 ../"$FILENAME".zip *
-    cd ..
-    echo "Creating MD5"
-    md5sum "$FILENAME".zip > "$FILENAME".zip.md5
-    echo "Cleaning up"
-    rm -rf "$TEMP2"
-	echo " "
-    echo "-- Done.. Added AROMA.. Build finished successfully!"
-    LOG="Added AROMA. Build finished successfully!"/$(date +"%T")
+    echo "Not ready yet"
 
 }
 
-
-echo " "
-echo " "
-echo " "
 echo " "
 echo " "
 echo -e "\e[1;92m--= \e[1;95mWelcome to the $ROM_NAME build script\e[1;92m =--"
@@ -179,10 +141,7 @@ echo -e "\e[0m "
 echo " "
 echo -e "\e[1;96mPlease make your selections carefully"
 echo -e "\e[0m "
-echo " "
 . build/envsetup.sh > /dev/null
-echo " " 
-echo " "
 select build in "Deep clean (inc. ccache)" "Build ROM" "Add Aroma Installer to ROM" "Refresh manifest,repo sync and upstream merge" "Deep Clean,Refresh Build,Build,No Aroma" "Deep Clean,Refresh Build,Build,Add Aroma"    "Exit"; do
 	case $build in
 		"Deep clean (inc. ccache)" ) deepClean; anythingElse; break;;
@@ -195,3 +154,4 @@ select build in "Deep clean (inc. ccache)" "Build ROM" "Add Aroma Installer to R
 	esac
 done
 exit 0
+
